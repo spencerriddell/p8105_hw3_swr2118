@@ -1,0 +1,363 @@
+---
+title: "P8105 Homework 3"
+author: "Spencer Riddell"
+output: github_document
+---
+  
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+library(tidyverse)
+library(janitor)
+library(gt)
+library(lubridate)
+library(patchwork)
+```
+
+# Homework 3
+
+---
+  
+  ## Problem 1
+  
+  ### 1. Instacart data description
+  
+```{r instacart-load}
+library(p8105.datasets)
+data("instacart")
+glimpse(instacart)
+summary(instacart)
+head(instacart)
+```
+
+---
+  
+  ### 2. How many aisles are there, and which aisles are the most items ordered from?
+  
+```{r instacart-aisles}
+aisle_counts <- instacart %>%
+  count(aisle, sort = TRUE)
+
+n_aisles <- n_distinct(instacart$aisle)
+aisle_counts
+n_aisles
+```
+
+---
+  
+  ### 3. Plot: Number of items ordered in each aisle (>10,000 items)
+  
+```{r instacart-aisle-plot, fig.height=8}
+aisle_counts %>%
+  filter(n > 10000) %>%
+  mutate(aisle = fct_reorder(aisle, n)) %>%
+  ggplot(aes(x = aisle, y = n)) +
+  geom_col() +
+  coord_flip() +
+  labs(
+    title = "Items ordered by aisle (more than 10,000 items)",
+    x = "Aisle",
+    y = "Number of items ordered"
+  )
+```
+
+---
+  
+  ### 4. Table: Three most popular items in selected aisles
+  
+```{r instacart-items-table}
+selected_aisles <- c("baking ingredients", "dog food care", "packaged vegetables fruits")
+
+instacart %>%
+  filter(aisle %in% selected_aisles) %>%
+  count(aisle, product_name, sort = TRUE) %>%
+  group_by(aisle) %>%
+  slice_max(order_by = n, n = 3) %>%
+  ungroup() %>%
+  arrange(aisle, desc(n)) %>%
+  gt()
+```
+
+---
+  
+  ### 5. Table: Mean hour for Pink Lady Apples and Coffee Ice Cream by weekday
+  
+```{r instacart-mean-hour}
+instacart %>%
+  filter(product_name %in% c("Pink Lady Apples", "Coffee Ice Cream")) %>%
+  group_by(product_name, order_dow) %>%
+  summarize(mean_hour = mean(order_hour_of_day), .groups = "drop") %>%
+  pivot_wider(
+    names_from = order_dow,
+    values_from = mean_hour
+  ) %>%
+  gt()
+```
+
+---
+  
+## Problem 2
+  
+### 1. Import and clean Zillow data
+  
+```{r zillow-load}
+zillow <- read_csv("data/Zip_zori_uc_sfrcondomfr_sm_month_NYC.csv") %>% clean_names()
+zipcodes <- read_csv("data/Zip Codes.csv") %>% clean_names()
+
+# Standardize ZIP code column for joining
+zillow <- zillow %>% rename(zip_code = region_name)
+# Pivot to long format, parse date, join borough info
+zillow_long <- zillow %>%
+  pivot_longer(
+    cols = matches("^\\d{4}_\\d{2}_\\d{2}$|^x\\d{4}_\\d{2}_\\d{2}$|^\\d{4}-\\d{2}-\\d{2}$"),
+    names_to = "date",
+    values_to = "rent"
+  ) %>%
+  mutate(
+    date = str_replace_all(date, "^x", ""),
+    date = str_replace_all(date, "_", "-"),
+    date = as.Date(date)
+  ) %>%
+  left_join(zipcodes, by = "zip_code") %>%
+  mutate(borough = county)
+
+glimpse(zillow_long)
+```
+
+---
+  
+### 2. How many ZIP codes are observed 116 times? Fewer than 10 times? Why?
+  
+```{r zillow-summary}
+zip_counts <- zillow_long %>%
+  group_by(zip_code) %>%
+  summarize(n_months = n())
+
+n_zip_116 <- zip_counts %>% filter(n_months == 116) %>% nrow()
+n_zip_lt10 <- zip_counts %>% filter(n_months < 10) %>% nrow()
+
+n_zip_116
+n_zip_lt10
+```
+
+*Add your commentary here.*
+  
+---
+  
+### 3. Table: Average rental price in each borough and year
+  
+```{r zillow-borough-year-table}
+zillow_long <- zillow_long %>%
+  mutate(year = year(date))
+
+borough_year_table <- zillow_long %>%
+  group_by(borough, year) %>%
+  summarize(mean_rent = mean(rent, na.rm = TRUE)) %>%
+  arrange(borough, year)
+
+borough_year_table %>%
+  pivot_wider(names_from = borough, values_from = mean_rent) %>%
+  gt()
+```
+
+---
+  
+### 4. Plot: NYC Rental Prices within ZIP codes for all available years, by borough
+  
+```{r zillow-zip-plot, fig.height=6}
+zillow_long %>%
+  ggplot(aes(x = date, y = rent, group = zip_code, color = borough)) +
+  geom_line(alpha = 0.2, size = 0.5) +
+  facet_wrap(~borough) +
+  labs(
+    title = "NYC Rental Prices by ZIP Code (All Years)",
+    x = "Date",
+    y = "Rental Price"
+  ) +
+  theme_minimal()
+```
+
+---
+  
+### 5. Distribution of ZIP-code-level rental prices (2023) by borough
+  
+```{r zillow-2023-dist, fig.height=5}
+zillow_2023 <- zillow_long %>%
+  filter(year == 2023) %>%
+  group_by(zip_code, borough) %>%
+  summarize(mean_rent = mean(rent, na.rm = TRUE), .groups = "drop")
+
+zillow_2023 %>%
+  ggplot(aes(x = borough, y = mean_rent, fill = borough)) +
+  geom_boxplot() +
+  labs(
+    title = "2023 ZIP Code Rental Price Distribution by Borough",
+    x = "Borough",
+    y = "Average ZIP Code Rental Price"
+  ) +
+  theme_minimal()
+```
+
+---
+  
+### 6. Combine previous two plots into a single graphic and export
+  
+```{r zillow-combined-plot, eval=FALSE}
+p1 <- zillow_long %>%
+  ggplot(aes(x = date, y = rent, group = zip_code, color = borough)) +
+  geom_line(alpha = 0.2, size = 0.5) +
+  facet_wrap(~borough) +
+  labs(
+    title = "NYC Rental Prices by ZIP Code (All Years)",
+    x = "Date",
+    y = "Rental Price"
+  ) +
+  theme_minimal()
+
+p2 <- zillow_2023 %>%
+  ggplot(aes(x = borough, y = mean_rent, fill = borough)) +
+  geom_boxplot() +
+  labs(
+    title = "2023 ZIP Code Rental Price Distribution by Borough",
+    x = "Borough",
+    y = "Average ZIP Code Rental Price"
+  ) +
+  theme_minimal()
+
+combined_plot <- p1 / p2
+ggsave("results/zillow_combined.png", combined_plot, width = 12, height = 10)
+```
+
+---
+  
+## Problem 3
+  
+### 1. Load and tidy NHANES Accelerometer Data
+  
+```{r nhanes-load-tidy}
+# Read data
+demo <- read_csv("data/nhanes_covar.csv") %>% clean_names()
+accel <- read_csv("data/nhanes_accel.csv") %>% clean_names()
+
+# Recode sex and education as descriptive factors
+demo <- demo %>%
+  mutate(
+    sex = case_when(
+      sex == 1 ~ "Male",
+      sex == 2 ~ "Female",
+      TRUE ~ NA_character_
+    ),
+    education = case_when(
+      education == 1 ~ "Less than high school",
+      education == 2 ~ "High school equivalent",
+      education == 3 ~ "More than high school",
+      TRUE ~ NA_character_
+    )
+  )
+
+# Filter: Age >= 21, no missing demo data
+demo_clean <- demo %>%
+  filter(age >= 21, !is.na(sex), !is.na(education))
+
+# Merge datasets (joining by seqn)
+nhanes <- left_join(demo_clean, accel, by = "seqn") %>%
+  mutate(
+    sex = factor(sex, levels = c("Male", "Female")),
+    education = factor(
+      education,
+      levels = c("Less than high school", "High school equivalent", "More than high school")
+    )
+  )
+```
+
+---
+  
+### 2. Table: Number of Men and Women by Education
+  
+```{r nhanes-table-gender-education}
+nhanes %>%
+  count(sex, education) %>%
+  pivot_wider(names_from = sex, values_from = n, values_fill = 0) %>%
+  gt() %>%
+  tab_header(title = "Number of Participants by Sex and Education")
+```
+
+---
+  
+### 3. Plot: Age Distributions for Men and Women by Education
+  
+```{r nhanes-age-dist, fig.height=4}
+nhanes %>%
+  ggplot(aes(x = age, fill = sex)) +
+  geom_histogram(position = "identity", alpha = 0.5, bins = 20) +
+  facet_wrap(~education, ncol = 1) +
+  labs(
+    title = "Age Distribution by Sex and Education",
+    x = "Age",
+    y = "Count"
+  ) +
+  theme_minimal()
+```
+
+*Comment: The table and plot above show how participant demographics are distributed by sex and education.*
+  
+---
+  
+### 4. Total Daily Activity vs Age
+  
+```{r nhanes-total-activity}
+nhanes <- nhanes %>%
+  rowwise() %>%
+  mutate(total_activity = sum(c_across(starts_with("min")), na.rm = TRUE)) %>%
+  ungroup()
+
+nhanes %>%
+  ggplot(aes(x = age, y = total_activity, color = sex)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth(se = FALSE) +
+  facet_wrap(~education) +
+  labs(
+    title = "Total Daily Activity vs Age, by Sex and Education",
+    x = "Age",
+    y = "Total Daily Activity (MIMS sum)"
+  ) +
+  theme_minimal()
+```
+
+*Comment: The plot illustrates the relationship between age and total activity, stratified by sex and education.*
+  
+---
+  
+### 5. 24-Hour Activity Time Courses
+  
+```{r nhanes-activity-timecourse, fig.height=7}
+nhanes_long <- nhanes %>%
+  pivot_longer(
+    cols = starts_with("min"),
+    names_to = "minute",
+    names_prefix = "min",
+    values_to = "activity"
+  ) %>%
+  mutate(
+    minute = as.integer(minute),
+    hour = minute %/% 60
+  )
+
+hourly_activity <- nhanes_long %>%
+  group_by(education, sex, hour) %>%
+  summarize(mean_activity = mean(activity, na.rm = TRUE), .groups = "drop")
+
+hourly_activity %>%
+  ggplot(aes(x = hour, y = mean_activity, color = sex)) +
+  geom_line(size = 1) +
+  facet_wrap(~education, ncol = 1) +
+  labs(
+    title = "Mean 24-Hour Activity by Education and Sex",
+    x = "Hour of Day",
+    y = "Mean MIMS"
+  ) +
+  theme_minimal()
+```
+
+*Comment: This plot shows the diurnal pattern of activity by education and sex. Look for differences in timing, amplitude, or overall activity levels.*
+  
+---
