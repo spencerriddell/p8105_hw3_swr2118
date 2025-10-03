@@ -84,6 +84,15 @@ head(instacart)
     ## #   days_since_prior_order <int>, product_name <chr>, aisle_id <int>,
     ## #   department_id <int>, aisle <chr>, department <chr>
 
+The Instacart dataset contains 1,384,617 rows and 15 columns,
+representing individual items ordered from Instacart. Key variables
+include order_id (the unique identifier for each order), product_id and
+product_name (identifying products), aisle and department (categorizing
+products), and ordering context such as order_hour_of_day and order_dow
+(day of week). Most orders are placed in the afternoon, with a median
+order hour of 14. Many products are reordered, and the most common
+aisles are “fresh vegetables” and “fresh fruits”.
+
 ------------------------------------------------------------------------
 
 ### 2. How many aisles are there, and which aisles are the most items ordered from?
@@ -117,6 +126,10 @@ n_aisles
 
     ## [1] 134
 
+There are 134 distinct aisles in the dataset. The most frequently
+ordered aisles are “fresh vegetables” (150,609 items) and “fresh fruits”
+(150,473 items), indicating a high volume of produce purchases.
+
 ------------------------------------------------------------------------
 
 ### 3. Plot: Number of items ordered in each aisle (\>10,000 items)
@@ -137,6 +150,12 @@ aisle_counts %>%
 
 ![](Homework3_files/figure-gfm/instacart-aisle-plot-1.png)<!-- -->
 
+The plot shows that a small subset of aisles accounts for the majority
+of ordered items. “Fresh vegetables,” “fresh fruits,” and “packaged
+vegetables fruits” dominate, with a sharp drop-off after the top aisles.
+This suggests consumer purchases are concentrated in a few aisles,
+likely reflecting staple grocery needs.
+
 ------------------------------------------------------------------------
 
 ### 4. Table: Three most popular items in selected aisles
@@ -154,20 +173,20 @@ instacart %>%
   gt()
 ```
 
-<div id="tnfvhnszvx" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#tnfvhnszvx table {
+<div id="uecmihmfnc" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#uecmihmfnc table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-&#10;#tnfvhnszvx thead, #tnfvhnszvx tbody, #tnfvhnszvx tfoot, #tnfvhnszvx tr, #tnfvhnszvx td, #tnfvhnszvx th {
+&#10;#uecmihmfnc thead, #uecmihmfnc tbody, #uecmihmfnc tfoot, #uecmihmfnc tr, #uecmihmfnc td, #uecmihmfnc th {
   border-style: none;
 }
-&#10;#tnfvhnszvx p {
+&#10;#uecmihmfnc p {
   margin: 0;
   padding: 0;
 }
-&#10;#tnfvhnszvx .gt_table {
+&#10;#uecmihmfnc .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -192,11 +211,11 @@ instacart %>%
   border-left-width: 2px;
   border-left-color: #D3D3D3;
 }
-&#10;#tnfvhnszvx .gt_caption {
+&#10;#uecmihmfnc .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
-&#10;#tnfvhnszvx .gt_title {
+&#10;#uecmihmfnc .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -207,7 +226,7 @@ instacart %>%
   border-bottom-color: #FFFFFF;
   border-bottom-width: 0;
 }
-&#10;#tnfvhnszvx .gt_subtitle {
+&#10;#uecmihmfnc .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -218,7 +237,7 @@ instacart %>%
   border-top-color: #FFFFFF;
   border-top-width: 0;
 }
-&#10;#tnfvhnszvx .gt_heading {
+&#10;#uecmihmfnc .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -229,12 +248,12 @@ instacart %>%
   border-right-width: 1px;
   border-right-color: #D3D3D3;
 }
-&#10;#tnfvhnszvx .gt_bottom_border {
+&#10;#uecmihmfnc .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
-&#10;#tnfvhnszvx .gt_col_headings {
+&#10;#uecmihmfnc .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -248,7 +267,7 @@ instacart %>%
   border-right-width: 1px;
   border-right-color: #D3D3D3;
 }
-&#10;#tnfvhnszvx .gt_col_heading {
+&#10;#uecmihmfnc .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -267,7 +286,7 @@ instacart %>%
   padding-right: 5px;
   overflow-x: hidden;
 }
-&#10;#tnfvhnszvx .gt_column_spanner_outer {
+&#10;#uecmihmfnc .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -278,13 +297,13 @@ instacart %>%
   padding-left: 4px;
   padding-right: 4px;
 }
-&#10;#tnfvhnszvx .gt_column_spanner_outer:first-child {
+&#10;#uecmihmfnc .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
-&#10;#tnfvhnszvx .gt_column_spanner_outer:last-child {
+&#10;#uecmihmfnc .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
-&#10;#tnfvhnszvx .gt_column_spanner {
+&#10;#uecmihmfnc .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -295,10 +314,10 @@ instacart %>%
   display: inline-block;
   width: 100%;
 }
-&#10;#tnfvhnszvx .gt_spanner_row {
+&#10;#uecmihmfnc .gt_spanner_row {
   border-bottom-style: hidden;
 }
-&#10;#tnfvhnszvx .gt_group_heading {
+&#10;#uecmihmfnc .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -323,7 +342,7 @@ instacart %>%
   vertical-align: middle;
   text-align: left;
 }
-&#10;#tnfvhnszvx .gt_empty_group_heading {
+&#10;#uecmihmfnc .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -337,13 +356,13 @@ instacart %>%
   border-bottom-color: #D3D3D3;
   vertical-align: middle;
 }
-&#10;#tnfvhnszvx .gt_from_md > :first-child {
+&#10;#uecmihmfnc .gt_from_md > :first-child {
   margin-top: 0;
 }
-&#10;#tnfvhnszvx .gt_from_md > :last-child {
+&#10;#uecmihmfnc .gt_from_md > :last-child {
   margin-bottom: 0;
 }
-&#10;#tnfvhnszvx .gt_row {
+&#10;#uecmihmfnc .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -361,7 +380,7 @@ instacart %>%
   vertical-align: middle;
   overflow-x: hidden;
 }
-&#10;#tnfvhnszvx .gt_stub {
+&#10;#uecmihmfnc .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -373,7 +392,7 @@ instacart %>%
   padding-left: 5px;
   padding-right: 5px;
 }
-&#10;#tnfvhnszvx .gt_stub_row_group {
+&#10;#uecmihmfnc .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -386,13 +405,13 @@ instacart %>%
   padding-right: 5px;
   vertical-align: top;
 }
-&#10;#tnfvhnszvx .gt_row_group_first td {
+&#10;#uecmihmfnc .gt_row_group_first td {
   border-top-width: 2px;
 }
-&#10;#tnfvhnszvx .gt_row_group_first th {
+&#10;#uecmihmfnc .gt_row_group_first th {
   border-top-width: 2px;
 }
-&#10;#tnfvhnszvx .gt_summary_row {
+&#10;#uecmihmfnc .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -401,14 +420,14 @@ instacart %>%
   padding-left: 5px;
   padding-right: 5px;
 }
-&#10;#tnfvhnszvx .gt_first_summary_row {
+&#10;#uecmihmfnc .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
-&#10;#tnfvhnszvx .gt_first_summary_row.thick {
+&#10;#uecmihmfnc .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
-&#10;#tnfvhnszvx .gt_last_summary_row {
+&#10;#uecmihmfnc .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -417,7 +436,7 @@ instacart %>%
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
-&#10;#tnfvhnszvx .gt_grand_summary_row {
+&#10;#uecmihmfnc .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -426,7 +445,7 @@ instacart %>%
   padding-left: 5px;
   padding-right: 5px;
 }
-&#10;#tnfvhnszvx .gt_first_grand_summary_row {
+&#10;#uecmihmfnc .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -435,7 +454,7 @@ instacart %>%
   border-top-width: 6px;
   border-top-color: #D3D3D3;
 }
-&#10;#tnfvhnszvx .gt_last_grand_summary_row_top {
+&#10;#uecmihmfnc .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -444,10 +463,10 @@ instacart %>%
   border-bottom-width: 6px;
   border-bottom-color: #D3D3D3;
 }
-&#10;#tnfvhnszvx .gt_striped {
+&#10;#uecmihmfnc .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
-&#10;#tnfvhnszvx .gt_table_body {
+&#10;#uecmihmfnc .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -455,7 +474,7 @@ instacart %>%
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
-&#10;#tnfvhnszvx .gt_footnotes {
+&#10;#uecmihmfnc .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -468,7 +487,7 @@ instacart %>%
   border-right-width: 2px;
   border-right-color: #D3D3D3;
 }
-&#10;#tnfvhnszvx .gt_footnote {
+&#10;#uecmihmfnc .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -476,7 +495,7 @@ instacart %>%
   padding-left: 5px;
   padding-right: 5px;
 }
-&#10;#tnfvhnszvx .gt_sourcenotes {
+&#10;#uecmihmfnc .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -489,64 +508,64 @@ instacart %>%
   border-right-width: 2px;
   border-right-color: #D3D3D3;
 }
-&#10;#tnfvhnszvx .gt_sourcenote {
+&#10;#uecmihmfnc .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
   padding-left: 5px;
   padding-right: 5px;
 }
-&#10;#tnfvhnszvx .gt_left {
+&#10;#uecmihmfnc .gt_left {
   text-align: left;
 }
-&#10;#tnfvhnszvx .gt_center {
+&#10;#uecmihmfnc .gt_center {
   text-align: center;
 }
-&#10;#tnfvhnszvx .gt_right {
+&#10;#uecmihmfnc .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
-&#10;#tnfvhnszvx .gt_font_normal {
+&#10;#uecmihmfnc .gt_font_normal {
   font-weight: normal;
 }
-&#10;#tnfvhnszvx .gt_font_bold {
+&#10;#uecmihmfnc .gt_font_bold {
   font-weight: bold;
 }
-&#10;#tnfvhnszvx .gt_font_italic {
+&#10;#uecmihmfnc .gt_font_italic {
   font-style: italic;
 }
-&#10;#tnfvhnszvx .gt_super {
+&#10;#uecmihmfnc .gt_super {
   font-size: 65%;
 }
-&#10;#tnfvhnszvx .gt_footnote_marks {
+&#10;#uecmihmfnc .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
-&#10;#tnfvhnszvx .gt_asterisk {
+&#10;#uecmihmfnc .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
-&#10;#tnfvhnszvx .gt_indent_1 {
+&#10;#uecmihmfnc .gt_indent_1 {
   text-indent: 5px;
 }
-&#10;#tnfvhnszvx .gt_indent_2 {
+&#10;#uecmihmfnc .gt_indent_2 {
   text-indent: 10px;
 }
-&#10;#tnfvhnszvx .gt_indent_3 {
+&#10;#uecmihmfnc .gt_indent_3 {
   text-indent: 15px;
 }
-&#10;#tnfvhnszvx .gt_indent_4 {
+&#10;#uecmihmfnc .gt_indent_4 {
   text-indent: 20px;
 }
-&#10;#tnfvhnszvx .gt_indent_5 {
+&#10;#uecmihmfnc .gt_indent_5 {
   text-indent: 25px;
 }
-&#10;#tnfvhnszvx .katex-display {
+&#10;#uecmihmfnc .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
-&#10;#tnfvhnszvx div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+&#10;#uecmihmfnc div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -590,6 +609,17 @@ instacart %>%
   &#10;</table>
 </div>
 
+In “baking ingredients,” items like “Light Brown Sugar” and “Pure Baking
+Soda” are most popular, indicating standard baking staples.
+
+“Dog food care” has a lower order volume, with the top items being
+“Snack Sticks Chicken & Rice Recipe Dog Treats” and “Organix Chicken &
+Brown Rice Recipe”.
+
+In “packaged vegetables fruits,” “Organic Baby Spinach,” “Organic
+Raspberries,” and “Organic Blueberries” are leading, suggesting high
+demand for organic produce.
+
 ------------------------------------------------------------------------
 
 ### 5. Table: Mean hour for Pink Lady Apples and Coffee Ice Cream by weekday
@@ -606,20 +636,20 @@ instacart %>%
   gt()
 ```
 
-<div id="bfouhsalmv" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#bfouhsalmv table {
+<div id="lxmiqmltvo" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#lxmiqmltvo table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-&#10;#bfouhsalmv thead, #bfouhsalmv tbody, #bfouhsalmv tfoot, #bfouhsalmv tr, #bfouhsalmv td, #bfouhsalmv th {
+&#10;#lxmiqmltvo thead, #lxmiqmltvo tbody, #lxmiqmltvo tfoot, #lxmiqmltvo tr, #lxmiqmltvo td, #lxmiqmltvo th {
   border-style: none;
 }
-&#10;#bfouhsalmv p {
+&#10;#lxmiqmltvo p {
   margin: 0;
   padding: 0;
 }
-&#10;#bfouhsalmv .gt_table {
+&#10;#lxmiqmltvo .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -644,11 +674,11 @@ instacart %>%
   border-left-width: 2px;
   border-left-color: #D3D3D3;
 }
-&#10;#bfouhsalmv .gt_caption {
+&#10;#lxmiqmltvo .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
-&#10;#bfouhsalmv .gt_title {
+&#10;#lxmiqmltvo .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -659,7 +689,7 @@ instacart %>%
   border-bottom-color: #FFFFFF;
   border-bottom-width: 0;
 }
-&#10;#bfouhsalmv .gt_subtitle {
+&#10;#lxmiqmltvo .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -670,7 +700,7 @@ instacart %>%
   border-top-color: #FFFFFF;
   border-top-width: 0;
 }
-&#10;#bfouhsalmv .gt_heading {
+&#10;#lxmiqmltvo .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -681,12 +711,12 @@ instacart %>%
   border-right-width: 1px;
   border-right-color: #D3D3D3;
 }
-&#10;#bfouhsalmv .gt_bottom_border {
+&#10;#lxmiqmltvo .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
-&#10;#bfouhsalmv .gt_col_headings {
+&#10;#lxmiqmltvo .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -700,7 +730,7 @@ instacart %>%
   border-right-width: 1px;
   border-right-color: #D3D3D3;
 }
-&#10;#bfouhsalmv .gt_col_heading {
+&#10;#lxmiqmltvo .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -719,7 +749,7 @@ instacart %>%
   padding-right: 5px;
   overflow-x: hidden;
 }
-&#10;#bfouhsalmv .gt_column_spanner_outer {
+&#10;#lxmiqmltvo .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -730,13 +760,13 @@ instacart %>%
   padding-left: 4px;
   padding-right: 4px;
 }
-&#10;#bfouhsalmv .gt_column_spanner_outer:first-child {
+&#10;#lxmiqmltvo .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
-&#10;#bfouhsalmv .gt_column_spanner_outer:last-child {
+&#10;#lxmiqmltvo .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
-&#10;#bfouhsalmv .gt_column_spanner {
+&#10;#lxmiqmltvo .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -747,10 +777,10 @@ instacart %>%
   display: inline-block;
   width: 100%;
 }
-&#10;#bfouhsalmv .gt_spanner_row {
+&#10;#lxmiqmltvo .gt_spanner_row {
   border-bottom-style: hidden;
 }
-&#10;#bfouhsalmv .gt_group_heading {
+&#10;#lxmiqmltvo .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -775,7 +805,7 @@ instacart %>%
   vertical-align: middle;
   text-align: left;
 }
-&#10;#bfouhsalmv .gt_empty_group_heading {
+&#10;#lxmiqmltvo .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -789,13 +819,13 @@ instacart %>%
   border-bottom-color: #D3D3D3;
   vertical-align: middle;
 }
-&#10;#bfouhsalmv .gt_from_md > :first-child {
+&#10;#lxmiqmltvo .gt_from_md > :first-child {
   margin-top: 0;
 }
-&#10;#bfouhsalmv .gt_from_md > :last-child {
+&#10;#lxmiqmltvo .gt_from_md > :last-child {
   margin-bottom: 0;
 }
-&#10;#bfouhsalmv .gt_row {
+&#10;#lxmiqmltvo .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -813,7 +843,7 @@ instacart %>%
   vertical-align: middle;
   overflow-x: hidden;
 }
-&#10;#bfouhsalmv .gt_stub {
+&#10;#lxmiqmltvo .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -825,7 +855,7 @@ instacart %>%
   padding-left: 5px;
   padding-right: 5px;
 }
-&#10;#bfouhsalmv .gt_stub_row_group {
+&#10;#lxmiqmltvo .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -838,13 +868,13 @@ instacart %>%
   padding-right: 5px;
   vertical-align: top;
 }
-&#10;#bfouhsalmv .gt_row_group_first td {
+&#10;#lxmiqmltvo .gt_row_group_first td {
   border-top-width: 2px;
 }
-&#10;#bfouhsalmv .gt_row_group_first th {
+&#10;#lxmiqmltvo .gt_row_group_first th {
   border-top-width: 2px;
 }
-&#10;#bfouhsalmv .gt_summary_row {
+&#10;#lxmiqmltvo .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -853,14 +883,14 @@ instacart %>%
   padding-left: 5px;
   padding-right: 5px;
 }
-&#10;#bfouhsalmv .gt_first_summary_row {
+&#10;#lxmiqmltvo .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
-&#10;#bfouhsalmv .gt_first_summary_row.thick {
+&#10;#lxmiqmltvo .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
-&#10;#bfouhsalmv .gt_last_summary_row {
+&#10;#lxmiqmltvo .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -869,7 +899,7 @@ instacart %>%
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
-&#10;#bfouhsalmv .gt_grand_summary_row {
+&#10;#lxmiqmltvo .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -878,7 +908,7 @@ instacart %>%
   padding-left: 5px;
   padding-right: 5px;
 }
-&#10;#bfouhsalmv .gt_first_grand_summary_row {
+&#10;#lxmiqmltvo .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -887,7 +917,7 @@ instacart %>%
   border-top-width: 6px;
   border-top-color: #D3D3D3;
 }
-&#10;#bfouhsalmv .gt_last_grand_summary_row_top {
+&#10;#lxmiqmltvo .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -896,10 +926,10 @@ instacart %>%
   border-bottom-width: 6px;
   border-bottom-color: #D3D3D3;
 }
-&#10;#bfouhsalmv .gt_striped {
+&#10;#lxmiqmltvo .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
-&#10;#bfouhsalmv .gt_table_body {
+&#10;#lxmiqmltvo .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -907,7 +937,7 @@ instacart %>%
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
-&#10;#bfouhsalmv .gt_footnotes {
+&#10;#lxmiqmltvo .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -920,7 +950,7 @@ instacart %>%
   border-right-width: 2px;
   border-right-color: #D3D3D3;
 }
-&#10;#bfouhsalmv .gt_footnote {
+&#10;#lxmiqmltvo .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -928,7 +958,7 @@ instacart %>%
   padding-left: 5px;
   padding-right: 5px;
 }
-&#10;#bfouhsalmv .gt_sourcenotes {
+&#10;#lxmiqmltvo .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -941,64 +971,64 @@ instacart %>%
   border-right-width: 2px;
   border-right-color: #D3D3D3;
 }
-&#10;#bfouhsalmv .gt_sourcenote {
+&#10;#lxmiqmltvo .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
   padding-left: 5px;
   padding-right: 5px;
 }
-&#10;#bfouhsalmv .gt_left {
+&#10;#lxmiqmltvo .gt_left {
   text-align: left;
 }
-&#10;#bfouhsalmv .gt_center {
+&#10;#lxmiqmltvo .gt_center {
   text-align: center;
 }
-&#10;#bfouhsalmv .gt_right {
+&#10;#lxmiqmltvo .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
-&#10;#bfouhsalmv .gt_font_normal {
+&#10;#lxmiqmltvo .gt_font_normal {
   font-weight: normal;
 }
-&#10;#bfouhsalmv .gt_font_bold {
+&#10;#lxmiqmltvo .gt_font_bold {
   font-weight: bold;
 }
-&#10;#bfouhsalmv .gt_font_italic {
+&#10;#lxmiqmltvo .gt_font_italic {
   font-style: italic;
 }
-&#10;#bfouhsalmv .gt_super {
+&#10;#lxmiqmltvo .gt_super {
   font-size: 65%;
 }
-&#10;#bfouhsalmv .gt_footnote_marks {
+&#10;#lxmiqmltvo .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
-&#10;#bfouhsalmv .gt_asterisk {
+&#10;#lxmiqmltvo .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
-&#10;#bfouhsalmv .gt_indent_1 {
+&#10;#lxmiqmltvo .gt_indent_1 {
   text-indent: 5px;
 }
-&#10;#bfouhsalmv .gt_indent_2 {
+&#10;#lxmiqmltvo .gt_indent_2 {
   text-indent: 10px;
 }
-&#10;#bfouhsalmv .gt_indent_3 {
+&#10;#lxmiqmltvo .gt_indent_3 {
   text-indent: 15px;
 }
-&#10;#bfouhsalmv .gt_indent_4 {
+&#10;#lxmiqmltvo .gt_indent_4 {
   text-indent: 20px;
 }
-&#10;#bfouhsalmv .gt_indent_5 {
+&#10;#lxmiqmltvo .gt_indent_5 {
   text-indent: 25px;
 }
-&#10;#bfouhsalmv .katex-display {
+&#10;#lxmiqmltvo .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
-&#10;#bfouhsalmv div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+&#10;#lxmiqmltvo div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1036,6 +1066,12 @@ instacart %>%
   &#10;</table>
 </div>
 
+“Pink Lady Apples” are typically ordered earlier in the day (especially
+on Mondays and Thursdays), while “Coffee Ice Cream” tends to be ordered
+in the afternoon or evening, with peak times varying by day. This may
+reflect consumer habits, with fruit being a staple daily snack and ice
+cream more of a nightly treat.
+
 ------------------------------------------------------------------------
 
 ## Problem 2
@@ -1061,31 +1097,51 @@ zillow_long <- zillow %>%
     date = as.Date(date)
   ) %>%
   left_join(zipcodes, by = "zip_code") %>%
-  mutate(borough = county)
+   mutate(
+    borough = county,
+    year = lubridate::year(date),
+    borough_clean = case_when(
+      borough == "New York"   ~ "Manhattan",
+      borough == "Kings"      ~ "Brooklyn",
+      borough == "Queens"     ~ "Queens",
+      borough == "Bronx"      ~ "Bronx",
+      borough == "Richmond"   ~ "Staten Island",
+      TRUE                    ~ borough
+    )
+   )
 
 glimpse(zillow_long)
 ```
 
     ## Rows: 17,516
-    ## Columns: 18
-    ## $ region_id    <dbl> 62080, 62080, 62080, 62080, 62080, 62080, 62080, 62080, 6…
-    ## $ size_rank    <dbl> 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, …
-    ## $ zip_code     <dbl> 11368, 11368, 11368, 11368, 11368, 11368, 11368, 11368, 1…
-    ## $ region_type  <chr> "zip", "zip", "zip", "zip", "zip", "zip", "zip", "zip", "…
-    ## $ state_name   <chr> "NY", "NY", "NY", "NY", "NY", "NY", "NY", "NY", "NY", "NY…
-    ## $ state        <chr> "NY", "NY", "NY", "NY", "NY", "NY", "NY", "NY", "NY", "NY…
-    ## $ city         <chr> "New York", "New York", "New York", "New York", "New York…
-    ## $ metro        <chr> "New York-Newark-Jersey City, NY-NJ-PA", "New York-Newark…
-    ## $ county_name  <chr> "Queens County", "Queens County", "Queens County", "Queen…
-    ## $ date         <date> 2015-01-31, 2015-02-28, 2015-03-31, 2015-04-30, 2015-05-…
-    ## $ rent         <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
-    ## $ county       <chr> "Queens", "Queens", "Queens", "Queens", "Queens", "Queens…
-    ## $ state_fips   <dbl> 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 3…
-    ## $ county_code  <chr> "081", "081", "081", "081", "081", "081", "081", "081", "…
-    ## $ county_fips  <dbl> 36081, 36081, 36081, 36081, 36081, 36081, 36081, 36081, 3…
-    ## $ file_date    <chr> "7/25/07", "7/25/07", "7/25/07", "7/25/07", "7/25/07", "7…
-    ## $ neighborhood <chr> "West Queens", "West Queens", "West Queens", "West Queens…
-    ## $ borough      <chr> "Queens", "Queens", "Queens", "Queens", "Queens", "Queens…
+    ## Columns: 20
+    ## $ region_id     <dbl> 62080, 62080, 62080, 62080, 62080, 62080, 62080, 62080, …
+    ## $ size_rank     <dbl> 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,…
+    ## $ zip_code      <dbl> 11368, 11368, 11368, 11368, 11368, 11368, 11368, 11368, …
+    ## $ region_type   <chr> "zip", "zip", "zip", "zip", "zip", "zip", "zip", "zip", …
+    ## $ state_name    <chr> "NY", "NY", "NY", "NY", "NY", "NY", "NY", "NY", "NY", "N…
+    ## $ state         <chr> "NY", "NY", "NY", "NY", "NY", "NY", "NY", "NY", "NY", "N…
+    ## $ city          <chr> "New York", "New York", "New York", "New York", "New Yor…
+    ## $ metro         <chr> "New York-Newark-Jersey City, NY-NJ-PA", "New York-Newar…
+    ## $ county_name   <chr> "Queens County", "Queens County", "Queens County", "Quee…
+    ## $ date          <date> 2015-01-31, 2015-02-28, 2015-03-31, 2015-04-30, 2015-05…
+    ## $ rent          <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+    ## $ county        <chr> "Queens", "Queens", "Queens", "Queens", "Queens", "Queen…
+    ## $ state_fips    <dbl> 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, …
+    ## $ county_code   <chr> "081", "081", "081", "081", "081", "081", "081", "081", …
+    ## $ county_fips   <dbl> 36081, 36081, 36081, 36081, 36081, 36081, 36081, 36081, …
+    ## $ file_date     <chr> "7/25/07", "7/25/07", "7/25/07", "7/25/07", "7/25/07", "…
+    ## $ neighborhood  <chr> "West Queens", "West Queens", "West Queens", "West Queen…
+    ## $ borough       <chr> "Queens", "Queens", "Queens", "Queens", "Queens", "Queen…
+    ## $ year          <dbl> 2015, 2015, 2015, 2015, 2015, 2015, 2015, 2015, 2015, 20…
+    ## $ borough_clean <chr> "Queens", "Queens", "Queens", "Queens", "Queens", "Queen…
+
+There are 147 ZIP codes with 116 monthly observations (the full date
+range), and none with fewer than 10 observations. ZIP codes with full
+coverage likely represent well-populated areas with consistent data
+collection, while missing or rare ZIP codes may correspond to less
+populated or recently added areas (though in this dataset, none have
+very low coverage).
 
 ------------------------------------------------------------------------
 
@@ -1110,8 +1166,6 @@ n_zip_lt10
 
     ## [1] 0
 
-*Add your commentary here.*
-
 ------------------------------------------------------------------------
 
 ### 3. Table: Average rental price in each borough and year
@@ -1121,29 +1175,29 @@ zillow_long <- zillow_long %>%
   mutate(year = year(date))
 
 borough_year_table <- zillow_long %>%
-  group_by(borough, year) %>%
+  group_by(borough_clean, year) %>%
   summarize(mean_rent = mean(rent, na.rm = TRUE)) %>%
-  arrange(borough, year)
+  arrange(borough_clean, year)
 
 borough_year_table %>%
-  pivot_wider(names_from = borough, values_from = mean_rent) %>%
+  pivot_wider(names_from = borough_clean, values_from = mean_rent) %>%
   gt()
 ```
 
-<div id="phkzhenxsc" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#phkzhenxsc table {
+<div id="nozotntcrc" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#nozotntcrc table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-&#10;#phkzhenxsc thead, #phkzhenxsc tbody, #phkzhenxsc tfoot, #phkzhenxsc tr, #phkzhenxsc td, #phkzhenxsc th {
+&#10;#nozotntcrc thead, #nozotntcrc tbody, #nozotntcrc tfoot, #nozotntcrc tr, #nozotntcrc td, #nozotntcrc th {
   border-style: none;
 }
-&#10;#phkzhenxsc p {
+&#10;#nozotntcrc p {
   margin: 0;
   padding: 0;
 }
-&#10;#phkzhenxsc .gt_table {
+&#10;#nozotntcrc .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1168,11 +1222,11 @@ borough_year_table %>%
   border-left-width: 2px;
   border-left-color: #D3D3D3;
 }
-&#10;#phkzhenxsc .gt_caption {
+&#10;#nozotntcrc .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
-&#10;#phkzhenxsc .gt_title {
+&#10;#nozotntcrc .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1183,7 +1237,7 @@ borough_year_table %>%
   border-bottom-color: #FFFFFF;
   border-bottom-width: 0;
 }
-&#10;#phkzhenxsc .gt_subtitle {
+&#10;#nozotntcrc .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1194,7 +1248,7 @@ borough_year_table %>%
   border-top-color: #FFFFFF;
   border-top-width: 0;
 }
-&#10;#phkzhenxsc .gt_heading {
+&#10;#nozotntcrc .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1205,12 +1259,12 @@ borough_year_table %>%
   border-right-width: 1px;
   border-right-color: #D3D3D3;
 }
-&#10;#phkzhenxsc .gt_bottom_border {
+&#10;#nozotntcrc .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
-&#10;#phkzhenxsc .gt_col_headings {
+&#10;#nozotntcrc .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1224,7 +1278,7 @@ borough_year_table %>%
   border-right-width: 1px;
   border-right-color: #D3D3D3;
 }
-&#10;#phkzhenxsc .gt_col_heading {
+&#10;#nozotntcrc .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1243,7 +1297,7 @@ borough_year_table %>%
   padding-right: 5px;
   overflow-x: hidden;
 }
-&#10;#phkzhenxsc .gt_column_spanner_outer {
+&#10;#nozotntcrc .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1254,13 +1308,13 @@ borough_year_table %>%
   padding-left: 4px;
   padding-right: 4px;
 }
-&#10;#phkzhenxsc .gt_column_spanner_outer:first-child {
+&#10;#nozotntcrc .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
-&#10;#phkzhenxsc .gt_column_spanner_outer:last-child {
+&#10;#nozotntcrc .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
-&#10;#phkzhenxsc .gt_column_spanner {
+&#10;#nozotntcrc .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1271,10 +1325,10 @@ borough_year_table %>%
   display: inline-block;
   width: 100%;
 }
-&#10;#phkzhenxsc .gt_spanner_row {
+&#10;#nozotntcrc .gt_spanner_row {
   border-bottom-style: hidden;
 }
-&#10;#phkzhenxsc .gt_group_heading {
+&#10;#nozotntcrc .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1299,7 +1353,7 @@ borough_year_table %>%
   vertical-align: middle;
   text-align: left;
 }
-&#10;#phkzhenxsc .gt_empty_group_heading {
+&#10;#nozotntcrc .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1313,13 +1367,13 @@ borough_year_table %>%
   border-bottom-color: #D3D3D3;
   vertical-align: middle;
 }
-&#10;#phkzhenxsc .gt_from_md > :first-child {
+&#10;#nozotntcrc .gt_from_md > :first-child {
   margin-top: 0;
 }
-&#10;#phkzhenxsc .gt_from_md > :last-child {
+&#10;#nozotntcrc .gt_from_md > :last-child {
   margin-bottom: 0;
 }
-&#10;#phkzhenxsc .gt_row {
+&#10;#nozotntcrc .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1337,7 +1391,7 @@ borough_year_table %>%
   vertical-align: middle;
   overflow-x: hidden;
 }
-&#10;#phkzhenxsc .gt_stub {
+&#10;#nozotntcrc .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1349,7 +1403,7 @@ borough_year_table %>%
   padding-left: 5px;
   padding-right: 5px;
 }
-&#10;#phkzhenxsc .gt_stub_row_group {
+&#10;#nozotntcrc .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1362,13 +1416,13 @@ borough_year_table %>%
   padding-right: 5px;
   vertical-align: top;
 }
-&#10;#phkzhenxsc .gt_row_group_first td {
+&#10;#nozotntcrc .gt_row_group_first td {
   border-top-width: 2px;
 }
-&#10;#phkzhenxsc .gt_row_group_first th {
+&#10;#nozotntcrc .gt_row_group_first th {
   border-top-width: 2px;
 }
-&#10;#phkzhenxsc .gt_summary_row {
+&#10;#nozotntcrc .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1377,14 +1431,14 @@ borough_year_table %>%
   padding-left: 5px;
   padding-right: 5px;
 }
-&#10;#phkzhenxsc .gt_first_summary_row {
+&#10;#nozotntcrc .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
-&#10;#phkzhenxsc .gt_first_summary_row.thick {
+&#10;#nozotntcrc .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
-&#10;#phkzhenxsc .gt_last_summary_row {
+&#10;#nozotntcrc .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1393,7 +1447,7 @@ borough_year_table %>%
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
-&#10;#phkzhenxsc .gt_grand_summary_row {
+&#10;#nozotntcrc .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1402,7 +1456,7 @@ borough_year_table %>%
   padding-left: 5px;
   padding-right: 5px;
 }
-&#10;#phkzhenxsc .gt_first_grand_summary_row {
+&#10;#nozotntcrc .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1411,7 +1465,7 @@ borough_year_table %>%
   border-top-width: 6px;
   border-top-color: #D3D3D3;
 }
-&#10;#phkzhenxsc .gt_last_grand_summary_row_top {
+&#10;#nozotntcrc .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1420,10 +1474,10 @@ borough_year_table %>%
   border-bottom-width: 6px;
   border-bottom-color: #D3D3D3;
 }
-&#10;#phkzhenxsc .gt_striped {
+&#10;#nozotntcrc .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
-&#10;#phkzhenxsc .gt_table_body {
+&#10;#nozotntcrc .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1431,7 +1485,7 @@ borough_year_table %>%
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
-&#10;#phkzhenxsc .gt_footnotes {
+&#10;#nozotntcrc .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1444,7 +1498,7 @@ borough_year_table %>%
   border-right-width: 2px;
   border-right-color: #D3D3D3;
 }
-&#10;#phkzhenxsc .gt_footnote {
+&#10;#nozotntcrc .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1452,7 +1506,7 @@ borough_year_table %>%
   padding-left: 5px;
   padding-right: 5px;
 }
-&#10;#phkzhenxsc .gt_sourcenotes {
+&#10;#nozotntcrc .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1465,64 +1519,64 @@ borough_year_table %>%
   border-right-width: 2px;
   border-right-color: #D3D3D3;
 }
-&#10;#phkzhenxsc .gt_sourcenote {
+&#10;#nozotntcrc .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
   padding-left: 5px;
   padding-right: 5px;
 }
-&#10;#phkzhenxsc .gt_left {
+&#10;#nozotntcrc .gt_left {
   text-align: left;
 }
-&#10;#phkzhenxsc .gt_center {
+&#10;#nozotntcrc .gt_center {
   text-align: center;
 }
-&#10;#phkzhenxsc .gt_right {
+&#10;#nozotntcrc .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
-&#10;#phkzhenxsc .gt_font_normal {
+&#10;#nozotntcrc .gt_font_normal {
   font-weight: normal;
 }
-&#10;#phkzhenxsc .gt_font_bold {
+&#10;#nozotntcrc .gt_font_bold {
   font-weight: bold;
 }
-&#10;#phkzhenxsc .gt_font_italic {
+&#10;#nozotntcrc .gt_font_italic {
   font-style: italic;
 }
-&#10;#phkzhenxsc .gt_super {
+&#10;#nozotntcrc .gt_super {
   font-size: 65%;
 }
-&#10;#phkzhenxsc .gt_footnote_marks {
+&#10;#nozotntcrc .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
-&#10;#phkzhenxsc .gt_asterisk {
+&#10;#nozotntcrc .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
-&#10;#phkzhenxsc .gt_indent_1 {
+&#10;#nozotntcrc .gt_indent_1 {
   text-indent: 5px;
 }
-&#10;#phkzhenxsc .gt_indent_2 {
+&#10;#nozotntcrc .gt_indent_2 {
   text-indent: 10px;
 }
-&#10;#phkzhenxsc .gt_indent_3 {
+&#10;#nozotntcrc .gt_indent_3 {
   text-indent: 15px;
 }
-&#10;#phkzhenxsc .gt_indent_4 {
+&#10;#nozotntcrc .gt_indent_4 {
   text-indent: 20px;
 }
-&#10;#phkzhenxsc .gt_indent_5 {
+&#10;#nozotntcrc .gt_indent_5 {
   text-indent: 25px;
 }
-&#10;#phkzhenxsc .katex-display {
+&#10;#nozotntcrc .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
-&#10;#phkzhenxsc div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+&#10;#nozotntcrc div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1531,73 +1585,73 @@ borough_year_table %>%
     <tr class="gt_col_headings">
       <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="year">year</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Bronx">Bronx</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Kings">Kings</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="New-York">New York</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Brooklyn">Brooklyn</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Manhattan">Manhattan</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Queens">Queens</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Richmond">Richmond</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Staten-Island">Staten Island</th>
     </tr>
   </thead>
   <tbody class="gt_table_body">
     <tr><td headers="year" class="gt_row gt_right">2015</td>
 <td headers="Bronx" class="gt_row gt_right">1759.595</td>
-<td headers="Kings" class="gt_row gt_right">2492.928</td>
-<td headers="New York" class="gt_row gt_right">3006.291</td>
+<td headers="Brooklyn" class="gt_row gt_right">2492.928</td>
+<td headers="Manhattan" class="gt_row gt_right">3006.291</td>
 <td headers="Queens" class="gt_row gt_right">2214.707</td>
-<td headers="Richmond" class="gt_row gt_right">NaN</td></tr>
+<td headers="Staten Island" class="gt_row gt_right">NaN</td></tr>
     <tr><td headers="year" class="gt_row gt_right">2016</td>
 <td headers="Bronx" class="gt_row gt_right">1520.194</td>
-<td headers="Kings" class="gt_row gt_right">2520.357</td>
-<td headers="New York" class="gt_row gt_right">3014.570</td>
+<td headers="Brooklyn" class="gt_row gt_right">2520.357</td>
+<td headers="Manhattan" class="gt_row gt_right">3014.570</td>
 <td headers="Queens" class="gt_row gt_right">2271.955</td>
-<td headers="Richmond" class="gt_row gt_right">NaN</td></tr>
+<td headers="Staten Island" class="gt_row gt_right">NaN</td></tr>
     <tr><td headers="year" class="gt_row gt_right">2017</td>
 <td headers="Bronx" class="gt_row gt_right">1543.599</td>
-<td headers="Kings" class="gt_row gt_right">2545.828</td>
-<td headers="New York" class="gt_row gt_right">3109.104</td>
+<td headers="Brooklyn" class="gt_row gt_right">2545.828</td>
+<td headers="Manhattan" class="gt_row gt_right">3109.104</td>
 <td headers="Queens" class="gt_row gt_right">2263.303</td>
-<td headers="Richmond" class="gt_row gt_right">NaN</td></tr>
+<td headers="Staten Island" class="gt_row gt_right">NaN</td></tr>
     <tr><td headers="year" class="gt_row gt_right">2018</td>
 <td headers="Bronx" class="gt_row gt_right">1639.430</td>
-<td headers="Kings" class="gt_row gt_right">2547.291</td>
-<td headers="New York" class="gt_row gt_right">3159.668</td>
+<td headers="Brooklyn" class="gt_row gt_right">2547.291</td>
+<td headers="Manhattan" class="gt_row gt_right">3159.668</td>
 <td headers="Queens" class="gt_row gt_right">2291.918</td>
-<td headers="Richmond" class="gt_row gt_right">NaN</td></tr>
+<td headers="Staten Island" class="gt_row gt_right">NaN</td></tr>
     <tr><td headers="year" class="gt_row gt_right">2019</td>
 <td headers="Bronx" class="gt_row gt_right">1705.589</td>
-<td headers="Kings" class="gt_row gt_right">2630.504</td>
-<td headers="New York" class="gt_row gt_right">3285.334</td>
+<td headers="Brooklyn" class="gt_row gt_right">2630.504</td>
+<td headers="Manhattan" class="gt_row gt_right">3285.334</td>
 <td headers="Queens" class="gt_row gt_right">2387.816</td>
-<td headers="Richmond" class="gt_row gt_right">NaN</td></tr>
+<td headers="Staten Island" class="gt_row gt_right">NaN</td></tr>
     <tr><td headers="year" class="gt_row gt_right">2020</td>
 <td headers="Bronx" class="gt_row gt_right">1811.443</td>
-<td headers="Kings" class="gt_row gt_right">2555.051</td>
-<td headers="New York" class="gt_row gt_right">3091.327</td>
+<td headers="Brooklyn" class="gt_row gt_right">2555.051</td>
+<td headers="Manhattan" class="gt_row gt_right">3091.327</td>
 <td headers="Queens" class="gt_row gt_right">2315.632</td>
-<td headers="Richmond" class="gt_row gt_right">1977.608</td></tr>
+<td headers="Staten Island" class="gt_row gt_right">1977.608</td></tr>
     <tr><td headers="year" class="gt_row gt_right">2021</td>
 <td headers="Bronx" class="gt_row gt_right">1857.777</td>
-<td headers="Kings" class="gt_row gt_right">2549.890</td>
-<td headers="New York" class="gt_row gt_right">3124.336</td>
+<td headers="Brooklyn" class="gt_row gt_right">2549.890</td>
+<td headers="Manhattan" class="gt_row gt_right">3124.336</td>
 <td headers="Queens" class="gt_row gt_right">2210.787</td>
-<td headers="Richmond" class="gt_row gt_right">2045.430</td></tr>
+<td headers="Staten Island" class="gt_row gt_right">2045.430</td></tr>
     <tr><td headers="year" class="gt_row gt_right">2022</td>
 <td headers="Bronx" class="gt_row gt_right">2054.267</td>
-<td headers="Kings" class="gt_row gt_right">2868.199</td>
-<td headers="New York" class="gt_row gt_right">3753.080</td>
+<td headers="Brooklyn" class="gt_row gt_right">2868.199</td>
+<td headers="Manhattan" class="gt_row gt_right">3753.080</td>
 <td headers="Queens" class="gt_row gt_right">2406.038</td>
-<td headers="Richmond" class="gt_row gt_right">2147.436</td></tr>
+<td headers="Staten Island" class="gt_row gt_right">2147.436</td></tr>
     <tr><td headers="year" class="gt_row gt_right">2023</td>
 <td headers="Bronx" class="gt_row gt_right">2285.459</td>
-<td headers="Kings" class="gt_row gt_right">3015.184</td>
-<td headers="New York" class="gt_row gt_right">3908.215</td>
+<td headers="Brooklyn" class="gt_row gt_right">3015.184</td>
+<td headers="Manhattan" class="gt_row gt_right">3908.215</td>
 <td headers="Queens" class="gt_row gt_right">2561.615</td>
-<td headers="Richmond" class="gt_row gt_right">2332.934</td></tr>
+<td headers="Staten Island" class="gt_row gt_right">2332.934</td></tr>
     <tr><td headers="year" class="gt_row gt_right">2024</td>
 <td headers="Bronx" class="gt_row gt_right">2496.896</td>
-<td headers="Kings" class="gt_row gt_right">3125.657</td>
-<td headers="New York" class="gt_row gt_right">4052.805</td>
+<td headers="Brooklyn" class="gt_row gt_right">3125.657</td>
+<td headers="Manhattan" class="gt_row gt_right">4052.805</td>
 <td headers="Queens" class="gt_row gt_right">2693.584</td>
-<td headers="Richmond" class="gt_row gt_right">2536.442</td></tr>
+<td headers="Staten Island" class="gt_row gt_right">2536.442</td></tr>
   </tbody>
   &#10;</table>
 </div>
@@ -1608,9 +1662,9 @@ borough_year_table %>%
 
 ``` r
 zillow_long %>%
-  ggplot(aes(x = date, y = rent, group = zip_code, color = borough)) +
+  ggplot(aes(x = date, y = rent, group = zip_code, color = borough_clean)) +
   geom_line(alpha = 0.2, size = 0.5) +
-  facet_wrap(~borough) +
+  facet_wrap(~borough_clean) +
   labs(
     title = "NYC Rental Prices by ZIP Code (All Years)",
     x = "Date",
@@ -1628,11 +1682,11 @@ zillow_long %>%
 ``` r
 zillow_2023 <- zillow_long %>%
   filter(year == 2023) %>%
-  group_by(zip_code, borough) %>%
+  group_by(zip_code, borough_clean) %>%
   summarize(mean_rent = mean(rent, na.rm = TRUE), .groups = "drop")
 
 zillow_2023 %>%
-  ggplot(aes(x = borough, y = mean_rent, fill = borough)) +
+  ggplot(aes(x = borough_clean, y = mean_rent, fill = borough_clean)) +
   geom_boxplot() +
   labs(
     title = "2023 ZIP Code Rental Price Distribution by Borough",
@@ -1650,9 +1704,9 @@ zillow_2023 %>%
 
 ``` r
 p1 <- zillow_long %>%
-  ggplot(aes(x = date, y = rent, group = zip_code, color = borough)) +
+  ggplot(aes(x = date, y = rent, group = zip_code, color = borough_clean)) +
   geom_line(alpha = 0.2, size = 0.5) +
-  facet_wrap(~borough) +
+  facet_wrap(~borough_clean) +
   labs(
     title = "NYC Rental Prices by ZIP Code (All Years)",
     x = "Date",
@@ -1661,7 +1715,7 @@ p1 <- zillow_long %>%
   theme_minimal()
 
 p2 <- zillow_2023 %>%
-  ggplot(aes(x = borough, y = mean_rent, fill = borough)) +
+  ggplot(aes(x = borough_clean, y = mean_rent, fill = borough_clean)) +
   geom_boxplot() +
   labs(
     title = "2023 ZIP Code Rental Price Distribution by Borough",
@@ -1728,20 +1782,20 @@ nhanes %>%
   tab_header(title = "Number of Participants by Sex and Education")
 ```
 
-<div id="xiawzvnpoq" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#xiawzvnpoq table {
+<div id="pkrcsoirra" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#pkrcsoirra table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-&#10;#xiawzvnpoq thead, #xiawzvnpoq tbody, #xiawzvnpoq tfoot, #xiawzvnpoq tr, #xiawzvnpoq td, #xiawzvnpoq th {
+&#10;#pkrcsoirra thead, #pkrcsoirra tbody, #pkrcsoirra tfoot, #pkrcsoirra tr, #pkrcsoirra td, #pkrcsoirra th {
   border-style: none;
 }
-&#10;#xiawzvnpoq p {
+&#10;#pkrcsoirra p {
   margin: 0;
   padding: 0;
 }
-&#10;#xiawzvnpoq .gt_table {
+&#10;#pkrcsoirra .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1766,11 +1820,11 @@ nhanes %>%
   border-left-width: 2px;
   border-left-color: #D3D3D3;
 }
-&#10;#xiawzvnpoq .gt_caption {
+&#10;#pkrcsoirra .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
-&#10;#xiawzvnpoq .gt_title {
+&#10;#pkrcsoirra .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1781,7 +1835,7 @@ nhanes %>%
   border-bottom-color: #FFFFFF;
   border-bottom-width: 0;
 }
-&#10;#xiawzvnpoq .gt_subtitle {
+&#10;#pkrcsoirra .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1792,7 +1846,7 @@ nhanes %>%
   border-top-color: #FFFFFF;
   border-top-width: 0;
 }
-&#10;#xiawzvnpoq .gt_heading {
+&#10;#pkrcsoirra .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1803,12 +1857,12 @@ nhanes %>%
   border-right-width: 1px;
   border-right-color: #D3D3D3;
 }
-&#10;#xiawzvnpoq .gt_bottom_border {
+&#10;#pkrcsoirra .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
-&#10;#xiawzvnpoq .gt_col_headings {
+&#10;#pkrcsoirra .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1822,7 +1876,7 @@ nhanes %>%
   border-right-width: 1px;
   border-right-color: #D3D3D3;
 }
-&#10;#xiawzvnpoq .gt_col_heading {
+&#10;#pkrcsoirra .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1841,7 +1895,7 @@ nhanes %>%
   padding-right: 5px;
   overflow-x: hidden;
 }
-&#10;#xiawzvnpoq .gt_column_spanner_outer {
+&#10;#pkrcsoirra .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1852,13 +1906,13 @@ nhanes %>%
   padding-left: 4px;
   padding-right: 4px;
 }
-&#10;#xiawzvnpoq .gt_column_spanner_outer:first-child {
+&#10;#pkrcsoirra .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
-&#10;#xiawzvnpoq .gt_column_spanner_outer:last-child {
+&#10;#pkrcsoirra .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
-&#10;#xiawzvnpoq .gt_column_spanner {
+&#10;#pkrcsoirra .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1869,10 +1923,10 @@ nhanes %>%
   display: inline-block;
   width: 100%;
 }
-&#10;#xiawzvnpoq .gt_spanner_row {
+&#10;#pkrcsoirra .gt_spanner_row {
   border-bottom-style: hidden;
 }
-&#10;#xiawzvnpoq .gt_group_heading {
+&#10;#pkrcsoirra .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1897,7 +1951,7 @@ nhanes %>%
   vertical-align: middle;
   text-align: left;
 }
-&#10;#xiawzvnpoq .gt_empty_group_heading {
+&#10;#pkrcsoirra .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1911,13 +1965,13 @@ nhanes %>%
   border-bottom-color: #D3D3D3;
   vertical-align: middle;
 }
-&#10;#xiawzvnpoq .gt_from_md > :first-child {
+&#10;#pkrcsoirra .gt_from_md > :first-child {
   margin-top: 0;
 }
-&#10;#xiawzvnpoq .gt_from_md > :last-child {
+&#10;#pkrcsoirra .gt_from_md > :last-child {
   margin-bottom: 0;
 }
-&#10;#xiawzvnpoq .gt_row {
+&#10;#pkrcsoirra .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1935,7 +1989,7 @@ nhanes %>%
   vertical-align: middle;
   overflow-x: hidden;
 }
-&#10;#xiawzvnpoq .gt_stub {
+&#10;#pkrcsoirra .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1947,7 +2001,7 @@ nhanes %>%
   padding-left: 5px;
   padding-right: 5px;
 }
-&#10;#xiawzvnpoq .gt_stub_row_group {
+&#10;#pkrcsoirra .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1960,13 +2014,13 @@ nhanes %>%
   padding-right: 5px;
   vertical-align: top;
 }
-&#10;#xiawzvnpoq .gt_row_group_first td {
+&#10;#pkrcsoirra .gt_row_group_first td {
   border-top-width: 2px;
 }
-&#10;#xiawzvnpoq .gt_row_group_first th {
+&#10;#pkrcsoirra .gt_row_group_first th {
   border-top-width: 2px;
 }
-&#10;#xiawzvnpoq .gt_summary_row {
+&#10;#pkrcsoirra .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1975,14 +2029,14 @@ nhanes %>%
   padding-left: 5px;
   padding-right: 5px;
 }
-&#10;#xiawzvnpoq .gt_first_summary_row {
+&#10;#pkrcsoirra .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
-&#10;#xiawzvnpoq .gt_first_summary_row.thick {
+&#10;#pkrcsoirra .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
-&#10;#xiawzvnpoq .gt_last_summary_row {
+&#10;#pkrcsoirra .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1991,7 +2045,7 @@ nhanes %>%
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
-&#10;#xiawzvnpoq .gt_grand_summary_row {
+&#10;#pkrcsoirra .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2000,7 +2054,7 @@ nhanes %>%
   padding-left: 5px;
   padding-right: 5px;
 }
-&#10;#xiawzvnpoq .gt_first_grand_summary_row {
+&#10;#pkrcsoirra .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2009,7 +2063,7 @@ nhanes %>%
   border-top-width: 6px;
   border-top-color: #D3D3D3;
 }
-&#10;#xiawzvnpoq .gt_last_grand_summary_row_top {
+&#10;#pkrcsoirra .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2018,10 +2072,10 @@ nhanes %>%
   border-bottom-width: 6px;
   border-bottom-color: #D3D3D3;
 }
-&#10;#xiawzvnpoq .gt_striped {
+&#10;#pkrcsoirra .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
-&#10;#xiawzvnpoq .gt_table_body {
+&#10;#pkrcsoirra .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2029,7 +2083,7 @@ nhanes %>%
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
-&#10;#xiawzvnpoq .gt_footnotes {
+&#10;#pkrcsoirra .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2042,7 +2096,7 @@ nhanes %>%
   border-right-width: 2px;
   border-right-color: #D3D3D3;
 }
-&#10;#xiawzvnpoq .gt_footnote {
+&#10;#pkrcsoirra .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2050,7 +2104,7 @@ nhanes %>%
   padding-left: 5px;
   padding-right: 5px;
 }
-&#10;#xiawzvnpoq .gt_sourcenotes {
+&#10;#pkrcsoirra .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2063,64 +2117,64 @@ nhanes %>%
   border-right-width: 2px;
   border-right-color: #D3D3D3;
 }
-&#10;#xiawzvnpoq .gt_sourcenote {
+&#10;#pkrcsoirra .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
   padding-left: 5px;
   padding-right: 5px;
 }
-&#10;#xiawzvnpoq .gt_left {
+&#10;#pkrcsoirra .gt_left {
   text-align: left;
 }
-&#10;#xiawzvnpoq .gt_center {
+&#10;#pkrcsoirra .gt_center {
   text-align: center;
 }
-&#10;#xiawzvnpoq .gt_right {
+&#10;#pkrcsoirra .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
-&#10;#xiawzvnpoq .gt_font_normal {
+&#10;#pkrcsoirra .gt_font_normal {
   font-weight: normal;
 }
-&#10;#xiawzvnpoq .gt_font_bold {
+&#10;#pkrcsoirra .gt_font_bold {
   font-weight: bold;
 }
-&#10;#xiawzvnpoq .gt_font_italic {
+&#10;#pkrcsoirra .gt_font_italic {
   font-style: italic;
 }
-&#10;#xiawzvnpoq .gt_super {
+&#10;#pkrcsoirra .gt_super {
   font-size: 65%;
 }
-&#10;#xiawzvnpoq .gt_footnote_marks {
+&#10;#pkrcsoirra .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
-&#10;#xiawzvnpoq .gt_asterisk {
+&#10;#pkrcsoirra .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
-&#10;#xiawzvnpoq .gt_indent_1 {
+&#10;#pkrcsoirra .gt_indent_1 {
   text-indent: 5px;
 }
-&#10;#xiawzvnpoq .gt_indent_2 {
+&#10;#pkrcsoirra .gt_indent_2 {
   text-indent: 10px;
 }
-&#10;#xiawzvnpoq .gt_indent_3 {
+&#10;#pkrcsoirra .gt_indent_3 {
   text-indent: 15px;
 }
-&#10;#xiawzvnpoq .gt_indent_4 {
+&#10;#pkrcsoirra .gt_indent_4 {
   text-indent: 20px;
 }
-&#10;#xiawzvnpoq .gt_indent_5 {
+&#10;#pkrcsoirra .gt_indent_5 {
   text-indent: 25px;
 }
-&#10;#xiawzvnpoq .katex-display {
+&#10;#pkrcsoirra .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
-&#10;#xiawzvnpoq div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+&#10;#pkrcsoirra div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>

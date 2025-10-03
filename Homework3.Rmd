@@ -29,6 +29,8 @@ summary(instacart)
 head(instacart)
 ```
 
+The Instacart dataset contains 1,384,617 rows and 15 columns, representing individual items ordered from Instacart. Key variables include order_id (the unique identifier for each order), product_id and product_name (identifying products), aisle and department (categorizing products), and ordering context such as order_hour_of_day and order_dow (day of week). Most orders are placed in the afternoon, with a median order hour of 14. Many products are reordered, and the most common aisles are "fresh vegetables" and "fresh fruits".
+
 ---
   
 ### 2. How many aisles are there, and which aisles are the most items ordered from?
@@ -41,6 +43,8 @@ n_aisles <- n_distinct(instacart$aisle)
 aisle_counts
 n_aisles
 ```
+
+There are 134 distinct aisles in the dataset. The most frequently ordered aisles are "fresh vegetables" (150,609 items) and "fresh fruits" (150,473 items), indicating a high volume of produce purchases.
 
 ---
   
@@ -60,6 +64,8 @@ aisle_counts %>%
   )
 ```
 
+The plot shows that a small subset of aisles accounts for the majority of ordered items. "Fresh vegetables," "fresh fruits," and "packaged vegetables fruits" dominate, with a sharp drop-off after the top aisles. This suggests consumer purchases are concentrated in a few aisles, likely reflecting staple grocery needs.
+
 ---
   
 ### 4. Table: Three most popular items in selected aisles
@@ -77,6 +83,12 @@ instacart %>%
   gt()
 ```
 
+In "baking ingredients," items like "Light Brown Sugar" and "Pure Baking Soda" are most popular, indicating standard baking staples.
+
+"Dog food care" has a lower order volume, with the top items being "Snack Sticks Chicken & Rice Recipe Dog Treats" and "Organix Chicken & Brown Rice Recipe".
+
+In "packaged vegetables fruits," "Organic Baby Spinach," "Organic Raspberries," and "Organic Blueberries" are leading, suggesting high demand for organic produce.
+
 ---
   
 ### 5. Table: Mean hour for Pink Lady Apples and Coffee Ice Cream by weekday
@@ -92,6 +104,8 @@ instacart %>%
   ) %>%
   gt()
 ```
+
+"Pink Lady Apples" are typically ordered earlier in the day (especially on Mondays and Thursdays), while "Coffee Ice Cream" tends to be ordered in the afternoon or evening, with peak times varying by day. This may reflect consumer habits, with fruit being a staple daily snack and ice cream more of a nightly treat.
 
 ---
   
@@ -118,10 +132,23 @@ zillow_long <- zillow %>%
     date = as.Date(date)
   ) %>%
   left_join(zipcodes, by = "zip_code") %>%
-  mutate(borough = county)
+   mutate(
+    borough = county,
+    year = lubridate::year(date),
+    borough_clean = case_when(
+      borough == "New York"   ~ "Manhattan",
+      borough == "Kings"      ~ "Brooklyn",
+      borough == "Queens"     ~ "Queens",
+      borough == "Bronx"      ~ "Bronx",
+      borough == "Richmond"   ~ "Staten Island",
+      TRUE                    ~ borough
+    )
+   )
 
 glimpse(zillow_long)
 ```
+
+There are 147 ZIP codes with 116 monthly observations (the full date range), and none with fewer than 10 observations. ZIP codes with full coverage likely represent well-populated areas with consistent data collection, while missing or rare ZIP codes may correspond to less populated or recently added areas (though in this dataset, none have very low coverage).
 
 ---
   
@@ -139,7 +166,7 @@ n_zip_116
 n_zip_lt10
 ```
 
-*Add your commentary here.*
+
   
 ---
   
@@ -150,12 +177,12 @@ zillow_long <- zillow_long %>%
   mutate(year = year(date))
 
 borough_year_table <- zillow_long %>%
-  group_by(borough, year) %>%
+  group_by(borough_clean, year) %>%
   summarize(mean_rent = mean(rent, na.rm = TRUE)) %>%
-  arrange(borough, year)
+  arrange(borough_clean, year)
 
 borough_year_table %>%
-  pivot_wider(names_from = borough, values_from = mean_rent) %>%
+  pivot_wider(names_from = borough_clean, values_from = mean_rent) %>%
   gt()
 ```
 
@@ -165,9 +192,9 @@ borough_year_table %>%
   
 ```{r zillow-zip-plot, fig.height=6}
 zillow_long %>%
-  ggplot(aes(x = date, y = rent, group = zip_code, color = borough)) +
+  ggplot(aes(x = date, y = rent, group = zip_code, color = borough_clean)) +
   geom_line(alpha = 0.2, size = 0.5) +
-  facet_wrap(~borough) +
+  facet_wrap(~borough_clean) +
   labs(
     title = "NYC Rental Prices by ZIP Code (All Years)",
     x = "Date",
@@ -183,11 +210,11 @@ zillow_long %>%
 ```{r zillow-2023-dist, fig.height=5}
 zillow_2023 <- zillow_long %>%
   filter(year == 2023) %>%
-  group_by(zip_code, borough) %>%
+  group_by(zip_code, borough_clean) %>%
   summarize(mean_rent = mean(rent, na.rm = TRUE), .groups = "drop")
 
 zillow_2023 %>%
-  ggplot(aes(x = borough, y = mean_rent, fill = borough)) +
+  ggplot(aes(x = borough_clean, y = mean_rent, fill = borough_clean)) +
   geom_boxplot() +
   labs(
     title = "2023 ZIP Code Rental Price Distribution by Borough",
@@ -203,9 +230,9 @@ zillow_2023 %>%
   
 ```{r zillow-combined-plot, eval=FALSE}
 p1 <- zillow_long %>%
-  ggplot(aes(x = date, y = rent, group = zip_code, color = borough)) +
+  ggplot(aes(x = date, y = rent, group = zip_code, color = borough_clean)) +
   geom_line(alpha = 0.2, size = 0.5) +
-  facet_wrap(~borough) +
+  facet_wrap(~borough_clean) +
   labs(
     title = "NYC Rental Prices by ZIP Code (All Years)",
     x = "Date",
@@ -214,7 +241,7 @@ p1 <- zillow_long %>%
   theme_minimal()
 
 p2 <- zillow_2023 %>%
-  ggplot(aes(x = borough, y = mean_rent, fill = borough)) +
+  ggplot(aes(x = borough_clean, y = mean_rent, fill = borough_clean)) +
   geom_boxplot() +
   labs(
     title = "2023 ZIP Code Rental Price Distribution by Borough",
