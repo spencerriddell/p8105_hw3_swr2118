@@ -12,10 +12,6 @@ library(gt)
 library(lubridate)
 library(patchwork)
 ```
-
-# Homework 3
-
----
   
 ## Problem 1
   
@@ -148,7 +144,7 @@ zillow_long <- zillow %>%
 glimpse(zillow_long)
 ```
 
-There are 147 ZIP codes with 116 monthly observations (the full date range), and none with fewer than 10 observations. ZIP codes with full coverage likely represent well-populated areas with consistent data collection, while missing or rare ZIP codes may correspond to less populated or recently added areas (though in this dataset, none have very low coverage).
+The Zillow data has been cleaned and joined with ZIP code and borough information. Borough names have been further standardized for clarity in summaries and plots.
 
 ---
   
@@ -166,7 +162,7 @@ n_zip_116
 n_zip_lt10
 ```
 
-
+There are 147 ZIP codes with 116 monthly observations (the full date range), and none with fewer than 10 observations. ZIP codes with full coverage likely represent well-populated areas with consistent data collection, while missing or rare ZIP codes may correspond to less populated or recently added areas (though in this dataset, none have very low coverage).
   
 ---
   
@@ -203,6 +199,8 @@ zillow_long %>%
   theme_minimal()
 ```
 
+Rental prices are consistently highest in Manhattan and lowest in the Bronx. All boroughs display an upward trend in average rent over time, with a particularly sharp increase in recent years (2021–2024), especially in Manhattan and Brooklyn. Staten Island (Richmond) has missing values for early years, likely due to data availability.
+
 ---
   
 ### 5. Distribution of ZIP-code-level rental prices (2023) by borough
@@ -224,11 +222,13 @@ zillow_2023 %>%
   theme_minimal()
 ```
 
+The plot highlights substantial variation in rental prices within each borough and ZIP code. Manhattan stands out for both high rents and large increases over time. Other boroughs show more moderate rent increases but still exhibit an overall upward trajectory.
+
 ---
   
 ### 6. Combine previous two plots into a single graphic and export
   
-```{r zillow-combined-plot, eval=FALSE}
+```{r zillow-combined-plot}
 p1 <- zillow_long %>%
   ggplot(aes(x = date, y = rent, group = zip_code, color = borough_clean)) +
   geom_line(alpha = 0.2, size = 0.5) +
@@ -251,8 +251,12 @@ p2 <- zillow_2023 %>%
   theme_minimal()
 
 combined_plot <- p1 / p2
-ggsave("results/zillow_combined.png", combined_plot, width = 12, height = 10)
+ggsave("homework3_files/combined_zillow_plot.png", combined_plot, width = 12, height = 8)
+
+combined_plot
 ```
+
+Boxplots show that Manhattan ZIP codes have the highest and widest distribution of rents. Brooklyn and Queens have moderate medians and spreads, while the Bronx and Staten Island have the lowest median rents and narrower distributions.
 
 ---
   
@@ -296,6 +300,8 @@ nhanes <- left_join(demo_clean, accel, by = "seqn") %>%
   )
 ```
 
+The NHANES demographic and accelerometer datasets were merged and tidied. Participants under 21 and those with missing sex or education were excluded. Sex and education are now descriptive, ordered factor variables for meaningful tables and plots.
+
 ---
   
 ### 2. Table: Number of Men and Women by Education
@@ -307,6 +313,8 @@ nhanes %>%
   gt() %>%
   tab_header(title = "Number of Participants by Sex and Education")
 ```
+
+This table shows the distribution of men and women across education categories. The sample is relatively balanced between gender, with more participants overall in the "More than high school" group.
 
 ---
   
@@ -325,7 +333,7 @@ nhanes %>%
   theme_minimal()
 ```
 
-*Comment: The table and plot above show how participant demographics are distributed by sex and education.*
+The age distribution in each education category is broad, with most participants between 20 and 80 years old. Women (blue) and men (red) have similar age distributions within each group, though the "more than high school" category has more younger participants overall.
   
 ---
   
@@ -350,7 +358,7 @@ nhanes %>%
   theme_minimal()
 ```
 
-*Comment: The plot illustrates the relationship between age and total activity, stratified by sex and education.*
+Total daily activity generally decreases with age across all education groups. Women (blue) tend to have similar or slightly higher activity levels than men (red), especially at younger ages, and the overall trend is consistent by education level.
   
 ---
   
@@ -385,6 +393,6 @@ hourly_activity %>%
   theme_minimal()
 ```
 
-*Comment: This plot shows the diurnal pattern of activity by education and sex. Look for differences in timing, amplitude, or overall activity levels.*
+Across all education levels, average activity rises in the morning, peaks midday, then declines in the evening. Women (blue) show slightly higher mean activity than men (red) throughout much of the day, especially in the higher education groups. The daily pattern is similar for both sexes.
   
 ---
